@@ -1,21 +1,27 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { getRecentActivity, RecentActivity } from '@/lib/analytics.api';
+import { getRecentActivity, RecentActivity } from '@/services/analytics.service';
 import { toast } from 'sonner';
 import { formatDistanceToNow } from 'date-fns';
-import { User, Scissors, IndianRupee, Activity } from 'lucide-react';
+import { User, Scissors, Activity, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 export function RecentActivityFeed() {
     const [activities, setActivities] = useState<RecentActivity[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    
+    const limit = 10;
 
-    const loadActivity = async () => {
+    const loadActivity = async (currentPage: number) => {
         try {
             setIsLoading(true);
-            const data = await getRecentActivity(10);
-            setActivities(data);
+            const response = await getRecentActivity(limit, currentPage);
+            setActivities(response.data);
+            setTotalPages(response.meta.totalPages);
         } catch (error) {
             toast.error("Failed to load recent activity");
         } finally {
@@ -24,12 +30,17 @@ export function RecentActivityFeed() {
     };
 
     useEffect(() => {
-        loadActivity();
+        loadActivity(page);
         
-        // Optional: Poll every 30 seconds for real-time feel
-        const interval = setInterval(loadActivity, 30000);
-        return () => clearInterval(interval);
-    }, []);
+        // Optional: Poll every 30 seconds for real-time feel if on page 1
+        let interval: NodeJS.Timeout;
+        if (page === 1) {
+            interval = setInterval(() => loadActivity(1), 30000);
+        }
+        return () => {
+            if (interval) clearInterval(interval);
+        };
+    }, [page]);
 
     return (
         <Card className="shadow-sm border-primary/10">
@@ -44,7 +55,7 @@ export function RecentActivityFeed() {
                             Real-time transaction and appointment logs across all staff.
                         </CardDescription>
                     </div>
-                    {isLoading && <div className="h-4 w-4 rounded-full border-2 border-primary border-t-transparent animate-spin mr-2" />}
+                    {isLoading && <div className="h-4 w-4 rounded-full border-2 border-primary border-t-transparent motion-safe:animate-spin mr-2" />}
                 </div>
             </CardHeader>
             <CardContent className="pt-4">
@@ -80,8 +91,7 @@ export function RecentActivityFeed() {
                                 </div>
                                 <div className="flex flex-col items-end gap-1">
                                     <Badge variant="outline" className="text-green-600 bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-900 flex items-center gap-0.5">
-                                        <IndianRupee className="h-3 w-3" />
-                                        {activity.amount}
+                                        {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(activity.amount)}
                                     </Badge>
                                     <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
                                         {activity.status}
@@ -89,6 +99,30 @@ export function RecentActivityFeed() {
                                 </div>
                             </div>
                         ))}
+                        
+                        {totalPages > 1 && (
+                            <div className="flex items-center justify-between pt-4 pb-2 border-t mt-4">
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setPage(p => Math.max(1, p - 1))}
+                                    disabled={page === 1 || isLoading}
+                                >
+                                    <ChevronLeft className="h-4 w-4 mr-1" /> Previous
+                                </Button>
+                                <span className="text-xs text-muted-foreground font-medium">
+                                    Page {page} of {totalPages}
+                                </span>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                                    disabled={page === totalPages || isLoading}
+                                >
+                                    Next <ChevronRight className="h-4 w-4 ml-1" />
+                                </Button>
+                            </div>
+                        )}
                     </div>
                 )}
             </CardContent>

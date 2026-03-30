@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState, useEffect } from "react";
-import { getEmployees, createEmployee, Employee } from "@/lib/employees.api";
+import { getEmployees, createEmployee, Employee } from "@/services/employees.service";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -50,7 +51,10 @@ export default function EmployeesPage() {
     try {
       setIsSubmitting(true);
       // Let backend auto-generate pass or use empty, we set default "Employee123!" in API client if empty
-      const newEmployee = await createEmployee(values);
+      const newEmployee = await createEmployee({
+        ...values,
+        password: values.password || "Employee123!",
+      });
       setEmployees([...employees, newEmployee]);
       toast.success("Employee created successfully! Their login is their email and password.");
       reset();

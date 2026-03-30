@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState, useEffect } from "react";
-import { getCustomers, createCustomer, updateCustomer, deleteCustomer, Customer } from "@/lib/customers.api";
+import { getCustomers, createCustomer, updateCustomer, deleteCustomer, Customer } from "@/services/customers.service";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";

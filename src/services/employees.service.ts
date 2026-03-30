@@ -1,4 +1,4 @@
-import { api } from './api';
+import { api } from './api-client';
 
 export interface Employee {
     id: string;
@@ -44,14 +44,9 @@ export const getEmployeeMetrics = async (employeeId: string, startDate?: Date, e
 export const createEmployee = async (data: {
     name: string;
     email: string;
-    password?: string; // Optional for creating employees right now, backend autogenerates or we send one
+    password: string;
     bio?: string;
 }) => {
-    // Ensuring basic default password if not provided by form
-    const requestData = {
-        ...data,
-        password: data.password || 'Employee123!',
-    };
-    const res = await api.post<Employee>('/employees', requestData);
+    const res = await api.post<Employee>('/employees', data);
     return res.data;
 };

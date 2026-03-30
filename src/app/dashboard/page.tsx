@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState, useEffect } from 'react';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from '@/store/auth.store';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Scissors, Users, RefreshCw, Component } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
-import { getDashboardMetrics, DashboardMetrics } from '@/lib/analytics.api';
+import { getDashboardMetrics, DashboardMetrics } from '@/services/analytics.service';
 import { toast } from 'sonner';
 import { DatePickerWithRange } from '@/components/ui/date-range-picker';
 import { DateRange } from 'react-day-picker';

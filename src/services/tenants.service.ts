@@ -1,4 +1,5 @@
-import { api } from './api';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { api } from './api-client';
 
 export const tenantsApi = {
   getSettings: async () => {

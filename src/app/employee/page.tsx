@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { getEmployees, Employee, getEmployeeMetrics, EmployeeMetrics } from "@/lib/employees.api";
-import { getEmployeeTransactions, Transaction } from "@/lib/transactions.api";
-import { useAuthStore } from "@/store/useAuthStore";
+import { getEmployees, Employee, getEmployeeMetrics, EmployeeMetrics } from "@/services/employees.service";
+import { getEmployeeTransactions, Transaction } from "@/services/transactions.service";
+import { useAuthStore } from "@/store/auth.store";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Banknote, Scissors, Clock, RefreshCw } from "lucide-react";

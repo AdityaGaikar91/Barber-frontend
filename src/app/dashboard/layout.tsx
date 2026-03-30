@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useAuthStore } from '@/store/useAuthStore';
-import { tenantsApi } from '@/lib/tenants.api';
+import { useAuthStore } from '@/store/auth.store';
+import { tenantsApi } from '@/services/tenants.service';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Scissors, Users, LayoutDashboard, Settings, LogOut, Banknote, Tag, Clock } from 'lucide-react';

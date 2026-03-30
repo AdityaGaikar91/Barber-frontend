@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -11,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import { appointmentsApi } from '@/lib/appointments.api';
+import { appointmentsApi } from '@/services/appointments.service';
 import { format } from 'date-fns';
 import { Loader2, CheckCircle2 } from 'lucide-react';
 
@@ -83,7 +84,7 @@ export function BookingForm({ slug }: { slug: string }) {
         </div>
         <CardTitle className="text-2xl mb-2">Appointment Requested!</CardTitle>
         <CardDescription className="text-lg">
-          We've received your request for <strong>{data.shopName}</strong>. 
+          We&apos;ve received your request for <strong>{data.shopName}</strong>. 
           The staff will review and approve it shortly.
         </CardDescription>
         <Button className="mt-6" onClick={() => window.location.reload()}>Book Another</Button>
@@ -179,10 +180,10 @@ export function BookingForm({ slug }: { slug: string }) {
                     }}
                   >
                     <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3 font-bold text-primary">
-                      {emp.name[0]}
+                      {emp.name ? emp.name[0].toUpperCase() : 'B'}
                     </div>
                     <div>
-                      <div className="font-semibold">{emp.name}</div>
+                      <div className="font-semibold">{emp.name || emp.email || 'Professional'}</div>
                       <div className="text-xs opacity-70">Professional Stylist</div>
                     </div>
                   </Button>

@@ -1,4 +1,5 @@
-import { api } from './api';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { api } from './api-client';
 
 export const appointmentsApi = {
   getPublicBookingInfo: async (slug: string) => {
@@ -13,6 +14,11 @@ export const appointmentsApi = {
 
   getTenantAppointments: async (params?: { startDate?: string; endDate?: string }) => {
     const response = await api.get('/appointments', { params });
+    return response.data;
+  },
+
+  getEmployeeAppointments: async (params?: { startDate?: string; endDate?: string }) => {
+    const response = await api.get('/appointments/me', { params });
     return response.data;
   },
 

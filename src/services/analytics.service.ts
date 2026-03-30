@@ -1,4 +1,4 @@
-import { api } from './api';
+import { api } from './api-client';
 
 export interface DashboardMetrics {
     totalCustomers: number;
@@ -37,7 +37,17 @@ export interface RecentActivity {
     customerName: string;
 }
 
-export const getRecentActivity = async (limit: number = 20): Promise<RecentActivity[]> => {
-    const response = await api.get(`/analytics/activity?limit=${limit}`);
+export interface PaginatedResponse<T> {
+    data: T[];
+    meta: {
+        total: number;
+        page: number;
+        limit: number;
+        totalPages: number;
+    };
+}
+
+export const getRecentActivity = async (limit: number = 10, page: number = 1): Promise<PaginatedResponse<RecentActivity>> => {
+    const response = await api.get(`/analytics/activity?limit=${limit}&page=${page}`);
     return response.data;
 };

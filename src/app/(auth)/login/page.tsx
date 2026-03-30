@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -8,8 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Scissors, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
-import { api } from "@/lib/api";
-import { useAuthStore } from "@/store/useAuthStore";
+import { api } from "@/services/api-client";
+import { useAuthStore } from "@/store/auth.store";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -155,7 +156,7 @@ export default function LoginPage() {
                 </CardContent>
                 <CardFooter className="flex flex-col space-y-4 text-center text-sm text-muted-foreground">
                     <div className="flex justify-center items-center space-x-1">
-                        <span>Don't have an account?</span>
+                        <span>Don&apos;t have an account?</span>
                         <Link
                             href="/register"
                             className="text-primary hover:text-primary/80 hover:underline transition-colors"

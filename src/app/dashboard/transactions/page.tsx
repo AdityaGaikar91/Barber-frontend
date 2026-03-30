@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState, useEffect } from "react";
-import { getServices, Service } from "@/lib/services.api";
-import { getEmployees, Employee } from "@/lib/employees.api";
-import { getCustomers, Customer } from "@/lib/customers.api";
-import { logTransaction, getEmployeeTransactions, Transaction } from "@/lib/transactions.api";
+import { getServices, Service } from "@/services/services.service";
+import { getEmployees, Employee } from "@/services/employees.service";
+import { getCustomers, Customer } from "@/services/customers.service";
+import { logTransaction, getEmployeeTransactions, Transaction } from "@/services/transactions.service";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";

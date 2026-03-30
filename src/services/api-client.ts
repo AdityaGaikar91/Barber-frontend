@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from '@/store/auth.store';
 
 // Assuming NestJS backend operates on localhost:5001 by default locally.
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
@@ -30,7 +30,9 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
        // Auto logout if the token is invalid/expired
        useAuthStore.getState().logout();
-       window.location.href = '/login';
+       if (typeof window !== 'undefined') {
+         window.location.href = '/login';
+       }
     }
     return Promise.reject(error);
   }

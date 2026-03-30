@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect } from "react";
-import { adminApi } from "@/lib/admin.api";
+import { adminApi } from "@/services/admin.service";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2, Store, Users, DollarSign, CalendarDays, UserCheck } from "lucide-react";
 

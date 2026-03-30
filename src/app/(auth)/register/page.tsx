@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -8,8 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Scissors, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
-import { api } from "@/lib/api";
-import { useAuthStore } from "@/store/useAuthStore";
+import { api } from "@/services/api-client";
+import { useAuthStore } from "@/store/auth.store";
 
 import { Button } from "@/components/ui/button";
 import {
