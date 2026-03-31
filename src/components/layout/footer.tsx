@@ -33,6 +33,7 @@ export function Footer() {
             <h4 className="text-sm font-bold uppercase tracking-widest text-primary">Resources</h4>
             <ul className="space-y-2 text-sm font-medium">
               <li><Link href="#" className="hover:text-primary transition-colors">Documentation</Link></li>
+              <li><Link href="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
               <li><Link href="#" className="hover:text-primary transition-colors">Help Center</Link></li>
               <li><Link href="#" className="hover:text-primary transition-colors">Blog</Link></li>
               <li><Link href="#" className="hover:text-primary transition-colors">Partners</Link></li>

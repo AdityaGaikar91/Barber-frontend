@@ -25,8 +25,8 @@ export function CTASection() {
                   Grow My Business <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="h-14 px-10 text-lg font-bold border-white/20 hover:bg-white/10 glass text-white" asChild>
-                <Link href="/login">Contact Sales</Link>
+              <Button size="lg" variant="ghost" className="h-14 px-10 text-lg font-bold bg-white/15 border border-white/30 text-white hover:bg-white/25 hover:text-white backdrop-blur-sm" asChild>
+                <Link href="/contact">Contact Sales</Link>
               </Button>
             </div>
             <p className="text-sm font-medium opacity-70">
